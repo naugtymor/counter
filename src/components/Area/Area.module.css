@@ -33,3 +33,11 @@
     justify-content: space-around;
 
 }
+
+.error {
+    color: red;
+}
+
+.default {
+    color: white;
+}
