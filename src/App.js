@@ -7,7 +7,7 @@ function App() {
   return (
       <div className={style.app}>
         <Header/>
-        <AreaNew/>
+        <Area/>
       </div>
   )
 }
