@@ -42,10 +42,12 @@ const Area = () => {
 
     const setSettings = () => {
         console.log("set")
-        localStorage.setItem("maxValue", `${maxValue}`);
-        localStorage.setItem("startValue", `${startValue}`);
-        localStorage.setItem("counterValue", `${startValue}`);
-        setCounterValue(startValue)
+        if (maxValue >= 0 && maxValue > startValue) {
+            localStorage.setItem("maxValue", `${maxValue}`);
+            localStorage.setItem("startValue", `${startValue}`);
+            localStorage.setItem("counterValue", `${startValue}`);
+            setCounterValue(startValue)
+        }
     }
     //
     // useEffect(() => {
@@ -64,10 +66,19 @@ const Area = () => {
             <div className={style.menu}>
                 <div className={style.inputs}>
                     <div>
-                        Max value <input value={maxValue} onChange={maxValueHandler} type={"number"} placeholder={"max value"}/>
+                        Max value <input
+                        className={(maxValue <= 0 || maxValue < startValue ? style.errorInput : "")}
+                        value={maxValue}
+                        onChange={maxValueHandler}
+                        type={"number"}
+                        placeholder={"max value"}/>
                     </div>
                     <div>
-                        Start value <input onChange={startValueHandler} value={startValue} type={"number"} placeholder={"start value"}/>
+                        Start value <input
+                        className={(startValue < 0 || maxValue < startValue ? style.errorInput : "")}
+                        onChange={startValueHandler}
+                        value={startValue} type={"number"}
+                        placeholder={"start value"}/>
                     </div>
                 </div>
                 <div className={style.button}>
