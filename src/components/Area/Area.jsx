@@ -2,12 +2,10 @@ import React, {useEffect} from "react";
 import style from './Area.module.css';
 import {useState} from "react";
 
-localStorage.setItem("counterValue", "0");
-localStorage.setItem("maxValue", "5");
-localStorage.setItem("startValue", "0");
+
 
 const Area = () => {
-
+    // debugger
     let localCounterValue = Number(localStorage.getItem("counterValue"));
     let localStartValue = Number(localStorage.getItem("startValue"));
     let localMaxValue = Number(localStorage.getItem("maxValue"));
@@ -49,17 +47,11 @@ const Area = () => {
             setCounterValue(startValue)
         }
     }
-    //
-    // useEffect(() => {
-    //     console.log("effect start")
-    //     setCounterValue(startValue)
-    //
-    // },[localStartValue])
-    //
-    // useEffect(() => {
-    //     console.log("effect max")
-    //     setCounterValue(startValue)
-    // },[localMaxValue])
+    useEffect(() => {
+        if (localMaxValue === 0) {
+            localStorage.setItem("maxValue", "5");
+        }
+    },[])
 
     return (
         <div className={style.area}>
@@ -67,7 +59,7 @@ const Area = () => {
                 <div className={style.inputs}>
                     <div>
                         Max value <input
-                        className={(maxValue <= 0 || maxValue < startValue ? style.errorInput : "")}
+                        className={(maxValue <= 0 || maxValue <= startValue ? style.errorInput : "")}
                         value={maxValue}
                         onChange={maxValueHandler}
                         type={"number"}
@@ -75,7 +67,7 @@ const Area = () => {
                     </div>
                     <div>
                         Start value <input
-                        className={(startValue < 0 || maxValue < startValue ? style.errorInput : "")}
+                        className={(startValue < 0 || maxValue <= startValue ? style.errorInput : "")}
                         onChange={startValueHandler}
                         value={startValue} type={"number"}
                         placeholder={"start value"}/>
